@@ -1,0 +1,23 @@
+@import "variables";
+@import "mixins/math";
+@import "mixins/framework";
+@import "mixins/grid";
+@import "mixins/flexbox";
+@import "mixins/cards";
+@import "mixins/buttons";
+@import "framework";
+@import "backforegrounds";
+@import "grid";
+@import "flexbox";
+@import "buttons";
+@import "forms";
+@import "pills";
+@import "tables";
+
+.bortscht {
+	background-color: #456789;
+}
+
+html {
+	font-family: sans-serif;
+}

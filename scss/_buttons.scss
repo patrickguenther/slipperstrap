@@ -1,0 +1,7 @@
+.btn, .btn-pad {
+	@include btn-pad();
+}
+
+@include make-button-pad-variant();
+
+@include make-button-color-variants($buttonColors);

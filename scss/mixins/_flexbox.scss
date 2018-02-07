@@ -1,0 +1,17 @@
+@mixin flex-container() {	
+	display: -ms-flexbox;
+	display: -moz-box;
+	display: -webkit-flex;
+	display: -webkit-box;
+	display: flex;
+}
+
+@mixin flic() {
+	@include flex-container();
+	flex-flow: column nowrap;
+}
+
+@mixin flir() {
+	@include flex-container();
+	flex-flow: row nowrap;
+}

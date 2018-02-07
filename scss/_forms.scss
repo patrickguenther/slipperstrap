@@ -1,0 +1,14 @@
+.form-control {
+	width: 100%;
+	padding: $padding;
+}
+
+input.form-control {
+    padding: 6px 5px;
+    font-weight: bold;
+    border: 1px solid $brand-primary;
+}
+
+.form-group {
+	margin-bottom: $formgroup-margin;
+}

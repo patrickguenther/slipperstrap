@@ -1,0 +1,139 @@
+@mixin make-container($gutter: 0) {
+	margin-right: auto;
+	margin-left: auto;
+	padding-left:  floor($gutter / 2);
+	padding-right: ceil($gutter / 2);
+	@include clearfix;
+}
+
+@mixin make-row($gutter) {
+	@include clearfix();
+	margin-left:  floor($gutter / -2);
+	margin-right: ceil($gutter / -2);
+}
+
+@mixin make-row-unrounded($gutter) {
+	@include clearfix();
+	margin-left:  ($gutter / -2);
+	margin-right: ($gutter / -2);
+}
+
+@mixin make-col($gutter) {
+	position: relative;
+	float: left;
+	min-height: 1px;
+	padding-left:  floor($gutter / 2);
+	padding-right: ceil($gutter / 2);
+}
+
+@mixin make-col-unrounded($gutter) {
+	position: relative;
+	float: left;
+	min-height: 1px;
+	padding-left:  ($gutter / 2);
+	padding-right: ($gutter / 2);
+}
+
+@mixin make-col-span($size, $columns) {
+	width: percentage($size / $columns);
+}
+
+@mixin make-col-offset($size, $columns: $grid-columns) {
+	margin-left: percentage($size / $columns);
+}
+
+@mixin make-col-push($size, $columns: $grid-columns) {
+	left: if($size > 0, percentage($size / $columns), auto);
+}
+
+@mixin make-col-pull($size, $columns: $grid-columns) {
+	right: if($size > 0, percentage($size / $columns), auto);
+}
+
+@mixin make-col-modifier($type, $size, $columns) {
+	@if $type == push {
+		@include make-col-push($size, $columns);
+	} @else if $type == pull {
+		@include make-col-pull($size, $columns);
+	} @else if $type == offset {
+		@include make-col-offset($size, $columns);
+	}
+}
+
+@mixin make-grid($rowClass, $colPrefix, $columns, $gutter, $breakPoints:()) {
+	%grid-column-#{$rowClass} {
+		position: relative;
+		// Prevent columns from collapsing when empty
+		min-height: 1px;
+		// Inner gutter via padding
+		padding-left: floor($gutter / 2);
+		padding-right: ceil($gutter / 2);
+		float: left;
+	}
+	@for $i from 1 through $columns {
+		.#{$rowClass} > .#{$colPrefix}-#{$i} {
+			@extend %grid-column-#{$rowClass};
+			@include make-col-span($i, $columns);
+		}
+	}
+	@each $modifier in (pull, push, offset) {
+		@for $i from 0 to $columns {
+			.#{$colPrefix}-#{$modifier}-#{$i} {
+				@include make-col-modifier($modifier, $i, $columns)
+			}
+		}
+	}
+	
+	.#{$rowClass} {
+		@include make-row($gutter);
+	}
+
+	@each $bp in map-keys($breakPoints) {
+		// Row classes with breakpoint modifiers
+		@for $i from 0 through $columns {
+			.#{$rowClass} > .#{$colPrefix}-#{$bp}-#{$i} {
+				@extend %grid-column-#{$rowClass};
+			}
+		}
+		@media (min-width: map-get($breakPoints, $bp)) {
+			@for $i from 1 through $columns {
+				.#{$rowClass} > .#{$colPrefix}-#{$bp}-#{$i} {
+					@include make-col-span($i, $columns);
+				}
+			}
+		
+			// push pull offset modifier with breakpoints
+			@each $modifier in (pull, push, offset) {
+				@for $i from 0 to $columns {
+					.#{$colPrefix}-#{$bp}-#{$modifier}-#{$i} {
+						@include make-col-modifier($modifier, $i, $columns);
+					}
+				}
+			}
+		}
+	}
+}
+
+@mixin make-gutter-variant($gutterClass, $rowClasses, $colSelector, $gutter) {
+	@each $row in $rowClasses {
+		.#{$row}.#{$gutterClass} {
+			@include make-row($gutter);
+			
+			&>#{$colSelector} {
+				@include make-col($gutter);
+			}
+		}
+	}
+}
+
+@mixin make-gutter-variant-unrounded($gutterClass, $rowClasses, $colSelector, $gutter) {
+	@each $row in $rowClasses {
+		.#{$row}.#{$gutterClass} {
+			@include make-row-unrounded($gutter);
+			
+			&>#{$colSelector} {
+				@include make-col-unrounded($gutter);
+			}
+		}
+	}
+}

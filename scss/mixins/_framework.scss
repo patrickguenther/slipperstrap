@@ -1,0 +1,153 @@
+@mixin media-up($bp, $brPnts:$breakPoints) {
+	@media (min-width: map-get($brPnts, $bp)) {
+		@content;
+	}
+}
+
+@mixin media-down($bp, $brPnts:$breakPoints) {
+	@media (max-width: map-get($brPnts, $bp)-1) {
+		@content;
+	}
+}
+
+@mixin media-between($lower, $upper, $brPoints:$breakPoints) {
+	$lowW: map-get($brPoints, $lower);
+	$upW: map-get($brPoints, $upper);
+	
+	@if $lowW > $upW {
+		$tmp: $lowW;
+		$lowW: $upW;
+		$upW: $tmp;
+	}
+	@media (min-width: $lowW) and (max-width: ($upW)-1) {
+		@content;
+	}
+}
+
+@mixin parent-sized($gutter: 0) {
+	position: absolute;
+	top: $gutter;
+	left: $gutter;
+	right: $gutter;
+	bottom: $gutter;
+}
+
+@mixin clearfix() {
+	&:after {
+		display: table;
+		content: " ";
+		clear: both;
+	}
+}
+
+
+@mixin make-visible-modifiers($breakPoints:()) {
+	%tmp-visible {
+		display: initial;
+	}
+	%tmp-hidden {
+		display: none;
+	}
+
+	.hidden {
+		display: none;
+	}
+
+	@each $bp in map-keys($breakPoints) {
+		@media (min-width: map-get($breakPoints, $bp)) {
+		}
+	}
+
+	@each $bp in map-keys($breakPoints) {
+		.hidden-#{$bp} {
+			@extend %tmp-visible;
+		}
+		div.hidden-#{$bp} {
+			display: block;
+		}
+		table.hidden-#{$bp} {
+			display: table;
+		}
+		td,th.hidden-#{$bp} {
+			display: table-cell;
+		}
+		tr.hidden-#{$bp} {
+			display: table-row;
+		}
+	
+		.visible-#{$bp} {
+			@extend %tmp-hidden;
+		}
+	
+		@media (min-width: map-get($breakPoints, $bp)) {
+			.hidden-#{$bp},
+			div.hidden-#{$bp},
+			table.hidden-#{$bp},
+			tr.hidden-#{$bp},
+			td.hidden-#{$bp},
+			th.hidden-#{$bp} {
+				display: none;
+			}
+		
+			.visible-#{$bp} {
+				display: block;
+			}
+		
+			table.visible-#{$bp} {
+				display: table;
+			}
+		
+			td,th {
+				&.visible-#{$bp} {
+					display: table-cell;
+				}
+			}
+		
+			tr.visible-#{$bp} {
+				display: table-row;
+			}
+		}
+	}
+}
+
+@mixin make-text-alignments($breakPoints: ()) {
+	.align-center {
+		text-align: center;
+	}
+	.align-right {
+		text-align: right;
+	}
+	.align-left {
+		text-align: left;
+	}
+
+	@each $bp in map-keys($breakPoints) {
+		@media (min-width: map-get($breakPoints, $bp)) {
+			.align-#{$bp}-center {
+				text-align: center;
+			}
+			
+			.align-#{$bp}-right {
+				text-align: right;
+			}
+		
+			.align-#{$bp}-left {
+				text-align: left;
+			}
+		}
+	}
+}
+
+@mixin prefix-select($property, $values, $prefixes: ()) {
+	// Output standard non-prefixed declaration
+	#{$property}: unquote($values);
+	
+	
+	@each $prefix in $prefixes {
+		#{'-' + $prefix + '-' + $property}: $value;
+	}
+}
+
+@mixin prefix($property, $value) {
+	@include prefix-select($property, $value, (ms, o, moz, webkit));
+}

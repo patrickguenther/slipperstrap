@@ -1,0 +1,79 @@
+@mixin btn-pad() {
+	border: 1px solid transparent;
+	padding: $button-default-padding;
+}
+
+%btn-base {
+	@include btn-pad();
+	text-align: center;
+	cursor: pointer;
+	border: 1px solid black;
+	font-weight: bold;
+	@if ($button-border-radius != 0) {
+		border-radius: $button-border-radius;
+	}
+	&.disabled, &.disabled:hover, &[disabled], &[disabled]:hover {
+		cursor: not-allowed;
+	}
+}
+
+@mixin make-button-pad-variant($pad-map:$button-padding) {
+	@each $s, $pad in map-keys($pad-map) {
+		.btn.btn-#{$s}-pad {
+			border: 1px solid transparent;
+			padding: $pad;
+		}
+	}
+}
+
+@mixin make-button-color-variants($btn-color-settings) {
+	@each $name, $ctx in $btn-color-settings {
+		.btn.btn-#{$name} {
+			@extend %btn-base;
+			background-color: map-get($ctx, bg);
+			@if (map-has-key($ctx, border)) {
+				border-color: map-get($ctx, border);
+			} @else {
+				border-color: map-get($ctx, bg);
+			}
+			@if (map-has-key($ctx, fg)) {
+				color: map-get($ctx, fg);
+			} @else {
+				color: white;
+			}
+			
+			@if (map-has-key($ctx, hover)) {
+				&:hover {
+					background-color: map-get($ctx, hover);
+				}
+			} @else {
+				&:hover {
+					background-color: darken(map-get($ctx, bg), 10%);
+					border-color: darken(map-get($ctx, bg), 10%);
+				}
+			}
+			
+			&.disabled, &.disabled:hover, &[disabled], &[disabled]:hover {
+				$disabled-bg: white;
+				
+				@if (map-has-key($ctx, diabled-bg)) {
+					$disabled-bg: map-get($ctx, disabled-bg);
+					background-color: $disabled-bg;
+				} @else {
+					$disabled-bg: desaturate-relative(map-get($ctx, bg), 0.2);
+					background-color: $disabled-bg;
+				}
+				@if (map-has-key($ctx, disabled-fg)) {
+					color: map-get($ctx, disabled-fg);
+				} @else {
+					color: #d0d0d0;
+				}
+				@if (map-has-key($ctx, disabled-border)) {
+					border-color: map-get($ctx, disabled-border);
+				} @else {
+					border-color: $disabled-bg;
+				}
+			}
+		}
+	}
+}

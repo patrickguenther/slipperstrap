@@ -1,0 +1,59 @@
+.pill {
+	border-radius: $pill-std-border-radius;
+}
+
+.pill-group {
+	@each $i in ('1', '2', '3') {
+		.pill-col-#{$i} {
+			&:first-of-type {
+				.pill-anchor {
+					&:first-of-type .pill {
+						border-top-left-radius: $pill-active-border-radius;
+					}
+					
+					&:nth-last-of-type(#{$i}) .pill {
+						border-bottom-left-radius: $pill-active-border-radius;
+					}
+				}
+			}
+			
+			&:last-of-type {
+				.pill-anchor {
+					&:nth-of-type(#{$i}) .pill {
+						border-top-right-radius: $pill-active-border-radius;
+					}
+					
+					&:last-of-type .pill {
+						border-bottom-right-radius: $pill-active-border-radius;
+					}
+				}
+			}
+		}
+	}
+	
+	.pill-row {
+		&:first-of-type {
+			.pill-anchor {
+				&:first-of-type .pill {
+					border-top-left-radius: $pill-active-border-radius;
+				}
+				
+				&:last-of-type .pill {
+					border-top-right-radius: $pill-active-border-radius;
+				}
+			}
+		}
+		
+		&:last-of-type {
+			.pill-anchor {
+				&:first-of-type .pill {
+					border-bottom-left-radius: $pill-active-border-radius;
+				}
+				
+				&:last-of-type .pill {
+					border-bottom-right-radius: $pill-active-border-radius;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,23 @@
+{
+  "name": "slipperstrap",
+  "version": "0.9.0",
+  "description": "Bootstrap inspired scss framework to create classes more dynamically",
+  "main": "dist/slipperstrap.css",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patrickguenther/slipperstrap.git"
+  },
+  "keywords": [
+    "scss",
+    "css"
+  ],
+  "author": "Patrick Günther",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/patrickguenther/slipperstrap/issues"
+  },
+  "homepage": "https://github.com/patrickguenther/slipperstrap#readme"
+}

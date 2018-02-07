@@ -1,0 +1,68 @@
+table.table {
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: seperate;
+	
+	th {
+		font-weight: normal;
+		color: black;
+	}
+	
+	td,th {
+		padding: $table-cell-padding;
+	}
+	
+	td {
+		vertical-align: top;
+	}
+	
+	tr, .tr {
+		td {
+			border-bottom: 1px solid darken($table-default-bg, 20%);
+		}
+
+		&:last-of-type td {
+			border-bottom: none;
+		}
+	}
+	
+	&.table-striped tbody tr:nth-child(2n + 1) {
+		background-color: $table-tr-odd-bg;
+	}
+}
+
+// table head
+.table {
+	%thead {
+		color: white;
+	}
+
+	@each $k,$v in $contextColors {
+		&.table-#{$k} {
+			th, .th {
+				@extend %thead;
+				background-color: map-get($v, bg);
+			}
+		}
+	}
+}
+
+.table {
+	.tr {
+		background-color: $table-tr-bg;
+	}
+}
+
+.table.table-striped {
+	tr, .tr {
+		border-bottom: 1px solid $table-tr-border-bottom-color;// #5b6072
+		
+		&:nth-of-type(2n + 1) {
+			background-color: $table-tr-odd-bg;
+		}
+		
+		&:nth-of-type(2n) {
+			background-color: $table-tr-even-bg;
+		}
+	}
+}

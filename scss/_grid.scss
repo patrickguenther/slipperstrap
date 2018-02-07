@@ -1,0 +1,40 @@
+// Grid for the odds table based on 20 columns
+@include make-grid(g-row, g-col, 20, 14px);
+
+// bootstrap like grid based on 12 columns => NOW WITH BREAKPOINTS
+@include make-grid(row, col, 12, 36px, $breakPoints);
+
+// grid based on 5 columns 10px gutter
+@include make-grid(row, col5, 5, 36px);
+
+@include make-gutter-variant(smallgutter, (row row5), "[class*=col]", 2px);
+@include make-gutter-variant(nogutter, (row), "[class*=col]", 0);
+@include make-gutter-variant(nogutter, g-row, "[class*=g-col]", 0);
+@include make-gutter-variant(mediumgutter, g-row, "[class*=g-col]", 10px);
+@include make-gutter-variant(biggutter, g-row, "[class*=g-col]", 32px);
+
+/* flexbox gutter variants */
+@include make-gutter-variant(smallgutter, fl-cntr, "[class*=fli-]", 2px);
+@include make-gutter-variant(mediumgutter, fl-cntr, "[class*=fli-]", 10px);
+@include make-gutter-variant(biggutter, fl-cntr, "[class*=fli-]", 38px);
+
+// Maybe not really grid related, but where else to put it?
+@include make-visible-modifiers($breakPoints);
+
+// Container classes for the bootstrap like 36px gutter grid
+.container {
+	@include make-container(36px);
+
+	@each $bm in map-keys($breakPoints) {
+		$tmp: map-get($breakPoints, $bm);
+		@if $tmp >= $container-fluid-breakpoint {
+			@media (min-width: map-get($breakPoints, $bm)) {
+				width: map-get($breakPoints, $bm);
+			}
+		}
+	}
+}
+
+.container-fluid {
+	@include make-container(36px);
+}

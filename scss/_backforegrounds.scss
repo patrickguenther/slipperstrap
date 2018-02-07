@@ -1,0 +1,25 @@
+.alert {
+	padding: $padding;
+	border: 1px solid black;
+}
+
+@each $name, $c in $contextColors {
+	.bg-#{$name} {
+		background-color: map-get($c, bg);
+	}
+	
+	.fg-#{$name} {
+		color: map-get($c, fg);
+	}
+	
+	.border-#{$name} {
+		border: 1px solid map-get($c, border);
+	}
+	
+	.alert-#{$name} {
+		@extend .bg-#{$name};
+		color: map-get($c, fg);
+		border: 1px solid map-get($c, border);
+	}
+}
+

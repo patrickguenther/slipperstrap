@@ -1,0 +1,111 @@
+$base-line-height: 1.1em;
+$padding-top: 5px;
+$padding-bottom: 3px;
+$padding-horizontal: 20px;
+
+$font-size: 14px;
+
+$card-padding-top: 6px;
+$card-padding-right: 6px;
+$card-padding-bottom: 6px;
+$card-padding-left: $card-padding-right;
+
+$card-padding: $card-padding-top $card-padding-right $card-padding-bottom $card-padding-left;
+
+$margin-y: 3px;
+$margin-x: 6px;
+
+$padding: $padding-top $padding-horizontal $padding-bottom;
+$padding-map: (
+	s: $padding-top*0.7 $padding-horizontal*0.7 $padding-bottom*0.7,
+	m: $padding-top*1.5 $padding-horizontal*1.5 $padding-bottom*1.5,
+	l: $padding-top*2 $padding-horizontal*2 $padding-bottom*2
+);
+$table-cell-padding: $padding;
+
+$border-radius: 20px;
+
+$formgroup-margin: 10px;
+
+$color-html: #2f323b;
+
+$brand-primary: #f6a821;
+$brand-primary-dark: darken($brand-primary, 20%);
+$brand-secondary: #484a54;
+$brand-secondary-dark: #22242a;
+$brand-bg: saturate(lighten(adjust-hue($brand-primary, -2), 20%), 33%);
+
+$table-default-bg: #d0d0d0;
+$table-tr-border-bottom-color: #5b6072;
+$table-tr-bg: #d0d0d0;
+$table-tr-odd-bg: white;
+$table-tr-even-bg: $table-tr-bg;
+
+$contextColors-tpl: (
+	primary: (
+		bg: $brand-primary
+	),
+	secondary: (
+		bg: $brand-secondary
+	),
+	danger: (
+		bg: #ec494c
+	),
+	warning: (
+		bg: #cfcf00
+	),
+	info: (
+		bg: #5f76e8
+	),
+	success: (
+		bg: #0ec300
+	)
+);
+
+$contextColors: ();
+$buttonColors: ();
+@each $key,$ctx in $contextColors-tpl {
+	@if (not map-has-key($ctx, fg)) {
+		$ctx: map-merge(
+			$ctx,
+			(fg: darken(map-get($ctx, bg), 20%))
+		);
+	}
+	@if (not map-has-key($ctx, border)) {
+		$ctx: map-merge(
+			$ctx,
+			(border: adjust-hue(darken(map-get($ctx, bg), 20%), 10deg))
+		);
+	}
+	$contextColors: map-merge($contextColors, ($key: $ctx));
+	$tmp: (
+		bg: map-get($ctx, bg)
+	);
+	$buttonColors: map-merge($buttonColors, ($key: $tmp));
+}
+
+$button-border-radius: 5px;
+
+$breakPoints: (
+	"xs": 320px,
+	"sm": 768px,
+	"md": 992px,
+	"lg": 1200px
+);
+
+$container-fluid-breakpoint: map-get($breakPoints, "sm");
+
+$color-disabled-fg: white;
+$color-disabled-bg: #a0a0a0;
+
+/* pills */
+$pill-std-border-radius:					0;
+$pill-active-border-radius:					5px;
+
+/* buttons */
+$button-default-padding: 11px 7px 8px;
+
+$button-padding: (
+	"sm": 4px 2px 1px,
+	"lg": 15px 7px 12px
+);

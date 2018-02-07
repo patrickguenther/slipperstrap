@@ -1,0 +1,10 @@
+
+@function lighten-relative($color, $fraction)  {
+	$to-lighten: 100% - lightness($color);
+	@return lighten($color, $fraction * $to-lighten);
+}
+
+@function desaturate-relative($color, $fraction) {
+	$to-desaturate: 100% - saturation($color);
+	@return desaturate($color, $fraction * $to-desaturate);
+}

@@ -1,0 +1,80 @@
+.fl-cntr {
+	@include flir;
+	
+	justify-content: space-around;
+}
+
+.fl-cntr-col {
+	@include flic;
+}
+
+.fl-cntr-btwn {
+	justify-content: space-between;
+}
+
+.fl-cntr-center {
+	justify-content: center;
+}
+
+.fl-cntr-vcenter {
+	align-items: center;
+}
+
+.fl-cntr-stretch {
+	align-items: stretch;
+}
+
+.fl-cntr-start {
+	justify-content: flex-start;
+}
+
+.fl-cntr-end {
+	justify-content: flex-end;
+}
+
+.fl-cntr-center {
+	justify-content: center;
+}
+
+%shortHandFlex {
+	flex: 1 1;
+}
+
+.flic {
+	@extend %shortHandFlex;
+	@include flic;
+}
+
+.flir {
+	@extend %shortHandFlex;
+	@include flir;
+}
+
+%tmp {
+	min-height: 0;
+	min-width: 0;
+}
+
+.fli-auto {
+	flex-basis: auto;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+	
+@for $i from 0 through 20 {
+	.fli-g-#{$i}, .fli-s-#{$i}, .fli-#{$i} {
+		@extend %tmp;
+	}
+	
+	.fli-g-#{$i}, .fli-#{$i} {
+		flex-grow: $i;
+	}
+	
+	.fli-s-#{$i}, .fli-#{$i} {
+		flex-shrink: $i;
+	}
+	
+	.fli-#{$i} {
+		flex-basis: percentage($i/100);
+	}
+}

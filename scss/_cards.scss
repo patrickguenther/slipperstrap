@@ -1,0 +1,29 @@
+.card {
+	.card-header {
+		@include moh-padding-xl();
+		font-size: 1.0rem;
+		font-weight: bold;
+		text-align: center;
+	}
+	
+	&.card-primary {
+		.card-header {
+			background-color: $brand-primary;
+			@include gradient-primary();
+			border-top: $border;
+			border-left: $border;
+			border-right: $border-highlight;
+			border-bottom: $border;
+		}
+	}
+	
+	.card-body {
+		padding-top: $card-padding-top;
+		padding-left: $card-padding-left;
+		padding-right: $card-padding-right;
+	}
+	
+	.card-footer {
+		padding: $card-padding;
+	}
+}

@@ -1,0 +1,25 @@
+@import "variables";
+@import "mixins/math";
+
+$color: #404040;
+
+.test {
+	color: lighten-relative($color, 0.2);
+}
+
+.progress {
+	position: relative;
+	border: 1px solid black;
+	height: 22px;
+}
+
+@each $k,$v in $buttonColors {
+	.progress-bar-#{$k} {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 20px;
+		background-color: map-get($v, bg);
+		width: lightness(map-get($v, bg));
+	}
+}

@@ -1,0 +1,11 @@
+@mixin make-card-variants($contextColors: (), $color:white) {
+	@each $k,$v in $contextColors {
+		.card.card-#{$k} {
+			.card-header {
+				background-color: $v;
+				color: $color;
+			}
+		}
+	}
+}
+

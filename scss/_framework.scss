@@ -1,0 +1,104 @@
+* {
+	box-sizing: border-box;
+	outline: none !important;
+    line-height: $base-line-height;
+}
+	
+html, body {	
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+		-ms-text-size-adjust: 100%;
+	font-size: $font-size;
+}
+
+.clearfix {
+	@include clearfix();
+}
+
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+
+.overflow-hidden {
+	overflow: hidden;
+}
+
+.overflow-auto {
+	overflow: auto;
+}
+
+@include make-text-alignments($breakPoints);
+
+.centered {
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.pos-rel {
+	position: relative;
+}
+
+.pos-abs {
+	position: absolute;
+}
+
+.fullwidth {
+	width: 100%;
+}
+
+.responsive {
+	display: block;
+	max-width: 100%;
+	margin: 0 auto;
+	height: 100%;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.hidden {
+	display: none;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.linked {
+	cursor: pointer;
+}
+
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: default !important;
+}
+
+.responsive-img-wrap > img {
+	display: block;
+	margin: 0 auto;
+	max-width: 100%;
+}
+
+.fullheight {
+	height: 100%;
+}
+
+//*
+.hidden-scrollbar::-webkit-scrollbar {
+	display: none;
+}//*/
